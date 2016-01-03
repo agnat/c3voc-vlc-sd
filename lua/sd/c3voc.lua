@@ -12,7 +12,7 @@ local dkjson = nil
 local common = nil
 local json =
 { parse_url = function(url)
-    vlc.msg.info("Fetching " .. url)
+    --vlc.msg.info("Fetching " .. url)
     local stream = vlc.stream(url)
     local string = ""
     local line   = ""
