@@ -1,9 +1,9 @@
 local sidebar_title = "C3VOC Streaming"
-local base_url      = "http://localhost:1337" -- "https://streaming.events.ccc.de"
+local base_url      = "https://streaming.media.ccc.de"
 local streams_path  = "streams/v1.json"
 
-local streams_url = "https://gist.githubusercontent.com/MaZderMind/d5737ab867ade7888cb4/raw/bb02a27ca758e1ca3de96b1bf3f811541436ab9d/streams-v1.json"
---local streams_url = base_url .. "/" .. streams_path
+local streams_url = base_url .. "/" .. streams_path
+streams_url = "https://gist.githubusercontent.com/MaZderMind/d5737ab867ade7888cb4/raw/bb02a27ca758e1ca3de96b1bf3f811541436ab9d/streams-v1.json"
 
 -- See vlc/share/lua/sd/README.txt
 local lazily_loaded = false
@@ -88,8 +88,12 @@ function main()
     local group_name = group["group"]
     conferences[conference][group_name] = group
   end
-  for name,conference in pairs(conferences) do
-    local conference_node = vlc.sd.add_node({title = name})
-    add_groups(conference_node, conference)
+  if next(conferences) == nil then
+    vlc.sd.add_node({title = "Upcoming Events: " .. base_url})
+  else
+    for name,conference in pairs(conferences) do
+      local conference_node = vlc.sd.add_node({title = name})
+      add_groups(conference_node, conference)
+    end
   end
 end
