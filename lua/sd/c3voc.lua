@@ -1,15 +1,9 @@
 local sidebar_title = "C3VOC Streaming"
 local base_url      = "http://localhost:1337" -- "https://streaming.events.ccc.de"
-local events_path   = "events/v1.json"
 local streams_path  = "streams/v1.json"
 
-function events_url()
-  return base_url .. "/" .. events_path
-end
-
-function streams_url(event_slug)
-  return base_url .. "/" .. event_slug .. "/" .. streams_path
-end
+local streams_url = "https://gist.githubusercontent.com/MaZderMind/d5737ab867ade7888cb4/raw/bb02a27ca758e1ca3de96b1bf3f811541436ab9d/streams-v1.json"
+--local streams_url = base_url .. "/" .. streams_path
 
 -- See vlc/share/lua/sd/README.txt
 local lazily_loaded = false
@@ -25,8 +19,8 @@ local json =
 
     repeat
       line = stream:readline()
-      string = string .. line
-    until line ~= nil
+      if line then string = string .. line end
+    until line == nil
 
     return dkjson.decode(string)
   end
@@ -39,44 +33,37 @@ function lazy_load()
   lazily_loaded = true
 end
 
-function dropnil(s)
-  if s == nil then return "" else return s end
+function add_urls(parent, urls)
+  for _,url in pairs(urls) do
+    parent:add_subitem({ title = url["display"], path = url["url"]})
+  end
 end
 
-function add_stream(parent, title, url)
-  parent:add_subitem({ title = title
-                     , path = url
-                     });
-end
-
-function add_translations(parent, room)
-  add_stream(parent, "Native", room["url"]);
-  add_stream(parent, "Live Translation", room["url"]);
-end
-
-function add_rooms(parent, members, streams)
-  for _,member in ipairs(members) do
-    local room = streams["rooms"][member];
-    local room_name = room["name"];
-    if room["translation"] then
-      local room_node = parent:add_subnode({title = room_name});
-      add_translations(room_node, room)
-    else
-      add_stream(parent, room_name, room["url"]);
+function add_streams(parent, streams)
+  if #streams == 1 then
+    add_urls(parent, streams[1]["urls"])
+  else
+    for _,stream in pairs(streams) do
+      local stream_node = parent:add_subnode({title = stream["display"]})
+      add_urls(stream_node, stream["urls"])
     end
   end
 end
 
-function add_groups(parent, slug)
-  local streams = json.parse_url(streams_url(slug))
-  for group,members in common.pairs_sorted(streams["groups"]) do
-    local group_node = parent:add_subnode({title = group});
-    add_rooms(group_node, members, streams)
+function add_rooms(parent, group)
+  local rooms = group["rooms"]
+  for _,room in pairs(rooms) do
+    local room_node = parent:add_subnode({title = room["display"]})
+    local streams = room["streams"]
+    add_streams(room_node, streams)
   end
 end
 
-function event_is_in_progress(event)
-  return true
+function add_groups(parent, groups)
+  for name,group in common.pairs_sorted(groups) do
+    group_node = parent:add_subnode({title = name})
+    add_rooms(group_node, group)
+  end
 end
 
 -- Service Discovery API Functions
@@ -90,12 +77,19 @@ end
 function main()
   lazy_load()
 
-  local events = json.parse_url(events_url())
+  local streams_json = json.parse_url(streams_url)
 
-  for _,event in ipairs(events) do
-    local parent = vlc.sd.add_node({ title = event["name"] })
-    if (event_is_in_progress(event)) then
-      add_groups(parent, event["slug"])
+  local conferences = {}
+  for _,group in ipairs(streams_json) do
+    local conference = group["conference"]
+    if conferences[conference] == nil then
+      conferences[conference] = {}
     end
+    local group_name = group["group"]
+    conferences[conference][group_name] = group
+  end
+  for name,conference in pairs(conferences) do
+    local conference_node = vlc.sd.add_node({title = name})
+    add_groups(conference_node, conference)
   end
 end
