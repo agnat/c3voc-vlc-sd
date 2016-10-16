@@ -4,7 +4,7 @@ C3VOC provides live streaming of [Chaos Computer Club](https://www.ccc.de/en/) e
 
 ![VLC Screenshot Mac](doc/images/vlc_c3voc_sd_macosx.png)
 
-... or [on Ubuntu](doc/images/vlc_c3voc_sd_ubuntu.png)
+... or [on Ubuntu](https://raw.githubusercontent.com/agnat/c3voc-vlc-sd/master/doc/images/vlc_c3voc_sd_ubuntu.png)
 
 #### Installation
 

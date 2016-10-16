@@ -3,7 +3,7 @@ local base_url      = "https://streaming.media.ccc.de"
 local streams_path  = "streams/v1.json"
 
 local streams_url = base_url .. "/" .. streams_path
-streams_url = "https://gist.githubusercontent.com/MaZderMind/d5737ab867ade7888cb4/raw/bb02a27ca758e1ca3de96b1bf3f811541436ab9d/streams-v1.json"
+-- streams_url = "https://gist.githubusercontent.com/MaZderMind/d5737ab867ade7888cb4/raw/bb02a27ca758e1ca3de96b1bf3f811541436ab9d/streams-v1.json"
 
 -- See vlc/share/lua/sd/README.txt
 local lazily_loaded = false
