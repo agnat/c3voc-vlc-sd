@@ -1,10 +1,8 @@
-### VLC service discovery of C3VOC event streams
+### VLC service discovery of CCC VOC event streams
 
-C3VOC provides live streaming of [Chaos Computer Club](https://www.ccc.de/en/) events and [other OSS related conferences](https://streaming.media.ccc.de). This script implements automatic service discovery of these streams in the [VLC media player](http://www.videolan.org/vlc/index.html).
+[CCC VOC](https://github.com/voc) provides live streaming of [Chaos Computer Club](https://www.ccc.de/en/) events, OSS related conferences and [other nerdy stuff](https://streaming.media.ccc.de). This script implements automatic service discovery of these streams in the [VLC media player](http://www.videolan.org/vlc/index.html).
 
 ![VLC Screenshot Mac](doc/images/vlc_c3voc_sd_macosx.png)
-
-... or [on Ubuntu](https://raw.githubusercontent.com/agnat/c3voc-vlc-sd/master/doc/images/vlc_c3voc_sd_ubuntu.png)
 
 #### Installation
 
@@ -16,15 +14,15 @@ curl -O https://raw.githubusercontent.com/agnat/c3voc-vlc-sd/master/lua/sd/c3voc
 
 ##### Linux
 
-````
+````bash
 mkdir -p ~/.local/share/vlc/lua/sd
-mv c3voc.lua ~/.local/share/vlc/lua/sd
+mv c3voc.lua ~/.local/share/vlc/lua/sd/
 ````
 
 ##### Mac OS
 
-````
-mkdir -p ~/Library/Application\ Support/org.videolan.vlc/lua/sd/
+````bash
+mkdir -p ~/Library/Application\ Support/org.videolan.vlc/lua/sd
 mv c3voc.lua ~/Library/Application\ Support/org.videolan.vlc/lua/sd/
 ````
 

@@ -1,4 +1,4 @@
-local sidebar_title = "C3VOC Streaming"
+local sidebar_title = "CCC VOC Streaming"
 local base_url      = "https://streaming.media.ccc.de"
 local streams_path  = "streams/v1.json"
 
