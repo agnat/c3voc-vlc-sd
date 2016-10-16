@@ -8,10 +8,27 @@ C3VOC provides live streaming of [Chaos Computer Club](https://www.ccc.de/en/) e
 
 #### Installation
 
-Unfortunately VLC does not execute service discovery scripts from your local VLC configuration directory. You've got to plomp the script into a system/application folder:
+Get a terminal and download the script by running
 
- * Mac OS X: `cp lua/sd/c3voc.lua /Applications/VLC.app/Contents/MacOS/share/lua/sd/`
- * Ubuntu: `cp lua/sd/c3voc.lua /usr/lib/vlc/lua/sd/`
+````bash
+curl -O https://raw.githubusercontent.com/agnat/c3voc-vlc-sd/master/lua/sd/c3voc.lua
+````
+
+##### Linux
+
+````
+mv c3voc.lua ~/.local/share/vlc/lua/sd
+````
+
+##### Mac OS
+
+````
+mv c3voc.lua ~/Library/Application\ Support/org.videolan.vlc/lua/sd/
+````
+
+##### Windows
+
+Download the script by any means necessary. Then move it to `%APPDATA%\vlc\lua\sd` ... I think.
 
 #### Kown Issues
 
