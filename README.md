@@ -17,12 +17,14 @@ curl -O https://raw.githubusercontent.com/agnat/c3voc-vlc-sd/master/lua/sd/c3voc
 ##### Linux
 
 ````
+mkdir -p ~/.local/share/vlc/lua/sd
 mv c3voc.lua ~/.local/share/vlc/lua/sd
 ````
 
 ##### Mac OS
 
 ````
+mkdir -p ~/Library/Application\ Support/org.videolan.vlc/lua/sd/
 mv c3voc.lua ~/Library/Application\ Support/org.videolan.vlc/lua/sd/
 ````
 
