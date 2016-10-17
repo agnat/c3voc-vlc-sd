@@ -34,9 +34,9 @@ Download the script by any means necessary. Then move it to `%APPDATA%\vlc\lua\s
 
 VLC service discovery scripts are not truely dynamic. They only fetch content once on first view. On Mac OS I found a trick to re-trigger the script.
 
-1. Deselect the "C3VOC Streaming" entry in the sidebar. (Select "Podcasts" or something)
-1. Right-click on "C3VOC Streaming" and disable it.
-1. Select "C3VOC Streaming" again. This re-enables the script and triggers a reload.
+1. Deselect the "CCC VOC Streaming" entry in the sidebar. (Select "Podcasts" or something)
+1. Right-click on "CCC VOC Streaming" and disable it.
+1. Select "CCC VOC Streaming" again. This re-enables the script and triggers a reload.
 
 ### Unkown Issues
 
